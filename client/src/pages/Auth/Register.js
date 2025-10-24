@@ -63,7 +63,7 @@ const Register = () => {
               onChange={(e) => setEmail(e.target.value)}
               className="form-control"
               id="exampleInputEmail1"
-              placeholder="Enter Your Email "
+              placeholder="Enter Your Email"
               required
             />
           </div>
@@ -118,7 +118,7 @@ const Register = () => {
               onChange={(e) => setAnswer(e.target.value)}
               className="form-control"
               id="exampleInputanswer1"
-              placeholder="What is Your Favorite sports"
+              placeholder="What is Your Favorite Sports"
               required
             />
           </div>
