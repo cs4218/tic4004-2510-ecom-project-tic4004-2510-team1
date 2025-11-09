@@ -12,7 +12,13 @@
     "sonarqube": "sonarqube-scanner",
     "test": "npm run test:backend && npm run test:frontend",
     "test:frontend": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.frontend.config.js",
-    "test:backend": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.backend.config.js"
+    "test:backend": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.backend.config.js",
+    "test:all": "node --experimental-vm-modules node_modules/jest/bin/jest.js --projects jest.backend.config.js jest.frontend.config.js",
+    "test:ui": "playwright test",
+    "test:ui:headed": "playwright test --headed",
+    "test:ui:debug": "playwright test --debug",
+    "test:ui:report": "playwright show-report",
+    "test:ui:codegen": "playwright codegen http://localhost:3000"
   },
   "keywords": [],
   "author": "RP",
@@ -37,10 +43,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.24.5",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/preset-env": "^7.24.5",
     "@babel/preset-react": "^7.24.1",
     "@eslint/js": "^9.38.0",
-    "@playwright/test": "^1.44.0",
+    "@playwright/test": "^1.56.1",
     "@types/node": "^20.12.12",
     "babel-jest": "^29.7.0",
     "eslint": "^9.38.0",

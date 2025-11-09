@@ -6,3 +6,9 @@ node_modules
 .env
 /coverage/
 .vscode/
+
+# Playwright
+/playwright/.auth/
+/test-results/
+/playwright-report/
+/playwright/.cache/

@@ -17,4 +17,6 @@ export default {
       functions: 100,
     },
   },
+
+  transform: {}
 };
