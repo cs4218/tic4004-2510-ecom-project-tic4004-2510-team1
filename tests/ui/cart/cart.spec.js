@@ -27,7 +27,6 @@ test.describe('Cart Page Tests', () => {
         await expect(guestMessage).toBeVisible();
     });
 
-    // /*
     test('should add product to cart and display in cart page', async ({ page }) => {
         // Ensure frontend and backend are reachable
         await page.goto('/');
@@ -56,7 +55,6 @@ test.describe('Cart Page Tests', () => {
         await cartCard.first().waitFor({ state: 'visible', timeout: 10000 });
         await expect(cartCard).toBeVisible();
     });
-    // */
 
     test('should display product details in cart', async ({ page }) => {
         await page.goto('/');
@@ -115,7 +113,6 @@ test.describe('Cart Page Tests', () => {
         await expect(totalPrice).toBeVisible();
     });
 
-    // /*
     test('should calculate total price correctly', async ({ page }) => {
         // Go to homepage and ensure app is ready
         await page.goto('/');
@@ -156,8 +153,6 @@ test.describe('Cart Page Tests', () => {
 
         expect(totalPrice).toBeCloseTo(firstProductPrice, 2);
     });
-
-    // */
 
     test('should show login prompt when guest tries to checkout', async ({ page }) => {
         await page.goto('/');
@@ -216,69 +211,6 @@ test.describe('Cart Page Tests', () => {
 
         // Should not contain Guest if logged in successfully
     });
-
-    /*
-    test('should display update address button for logged in users', async ({ page }) => {
-        // Go to login page and perform login
-        await page.goto('/login');
-        await page.getByPlaceholder('Enter Your Email').fill('test@example.com');
-        await page.getByPlaceholder('Enter Your Password').fill('password123');
-
-        // Click login and wait for either a navigation or a login API response
-        const loginApiPath = /\/api\/.*login/i; // adjust if your login endpoint differs
-        const waited = Promise.race([
-            page.waitForResponse(resp => loginApiPath.test(resp.url()) && resp.status() >= 200 && resp.status() < 400, { timeout: 10000 }).catch(() => null),
-            page.waitForNavigation({ waitUntil: 'networkidle', timeout: 10000 }).catch(() => null)
-        ]);
-
-        await page.getByRole('button', { name: 'LOGIN', exact: true }).click();
-        await waited;
-
-        // Ensure we are on the app origin before accessing localStorage
-        await page.goto('/'); 
-        await page.waitForLoadState('networkidle');
-
-        // Prefer checking a persisted auth indicator: try localStorage token (adjust key name)
-        const authTokenKey = 'authToken'; // change to the key your app uses, e.g., 'token' or 'accessToken'
-        const hasToken = await page.evaluate((k) => !!window.localStorage.getItem(k), authTokenKey).catch(() => false);
-
-        // Fallback UI checks (flexible)
-        const logoutButtonVisible = await page.getByRole('button', { name: /logout|sign out/i }).isVisible().catch(() => false);
-        const profileVisible = await page.getByText(/profile|welcome/i).isVisible().catch(() => false);
-
-        // If login not detected, capture screenshot for debugging
-        if (!hasToken && !logoutButtonVisible && !profileVisible) {
-            await page.screenshot({ path: 'tmp/login-failed-debug.png', fullPage: true }).catch(() => {});
-            console.log('Debug: login did not appear to succeed; no token, logout button, or profile text found.');
-        }
-
-        expect(hasToken || logoutButtonVisible || profileVisible).toBe(true);
-
-        // Now continue: ensure homepage products are loaded, add one to cart, go to cart
-        await page.locator('.card').first().waitFor({ state: 'visible', timeout: 15000 });
-
-        await page.locator('.card').first().getByRole('button', { name: /add to cart/i }).click();
-        await page.waitForTimeout(500);
-
-        await page.goto('/cart');
-        await page.waitForLoadState('networkidle');
-
-        // Check for update address button or current address heading (flexible)
-        const updateAddressButton = page.getByRole('button', { name: /update address/i });
-        const currentAddressHeading = page.getByRole('heading', { name: /current address/i });
-
-        const checkVisible = async (locator, timeout = 3000) => locator.waitFor({ state: 'visible', timeout }).then(() => true).catch(() => false);
-        const hasUpdateButton = await checkVisible(updateAddressButton, 3000);
-        const hasCurrentAddress = await checkVisible(currentAddressHeading, 3000);
-
-        if (!hasUpdateButton && !hasCurrentAddress) {
-            await page.screenshot({ path: 'tmp/cart-no-address-debug.png', fullPage: true }).catch(() => {});
-            console.log('Debug: neither Update Address nor Current Address was visible on /cart');
-        }
-
-        expect(hasUpdateButton || hasCurrentAddress).toBe(true);
-    });
-    */
 
     test('should navigate to profile when clicking update address', async ({ page }) => {
          // Login first

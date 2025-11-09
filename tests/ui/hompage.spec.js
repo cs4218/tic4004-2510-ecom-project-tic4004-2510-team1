@@ -98,59 +98,6 @@ test.describe('Homepage Tests', () => {
         expect(productCount).toBeGreaterThanOrEqual(0);
     });
 
-    /*
-    test('should reset filters when clicking reset button', async ({ page }) => {
-        // Ensure homepage and products loaded
-        await page.goto('/');
-        await page.waitForLoadState('networkidle');
-        await page.locator('.card').first().waitFor({ state: 'visible', timeout: 15000 });
-
-        // Apply a filter
-        const firstCheckbox = page.locator('.filters .ant-checkbox-wrapper').first();
-        await firstCheckbox.click();
-        await page.waitForTimeout(500);
-
-        // Confirm filter applied by checking that product list changed or a filter chip appears
-        // (Adjust selector to something your app actually shows when a filter is active)
-        const activeFilter = page.locator('.filters .ant-checkbox-wrapper.checked, .filter-chip');
-        const filterApplied = await activeFilter.count() > 0;
-        if (!filterApplied) {
-            // Fallback: check product count decreased (example)
-            // const initialCount = await page.locator('.card').count();
-            // expect(initialCount).toBeGreaterThan(0);
-        }
-
-        // Click reset and wait for either a reload or UI change
-        const resetButton = page.getByRole('button', { name: /reset filters/i });
-
-        await resetButton.click();
-
-        // Wait for one of these outcomes (increase timeout if CI is slow)
-        const outcome = await Promise.race([
-            // page load event covers full reloads
-            page.waitForLoadState('load').then(() => 'reloaded').catch(() => null),
-            // networkidle covers SPA fetches
-            page.waitForLoadState('networkidle').then(() => 'networkidle').catch(() => null),
-            // wait until filters are cleared (replace with your actual cleared-filter selector)
-            (async () => {
-            const cleared = await page.locator('.filters .ant-checkbox-wrapper.checked').waitFor({ state: 'detached', timeout: 10000 }).then(() => 'filtersCleared').catch(() => null);
-            return cleared;
-            })(),
-            // fallback timeout
-            new Promise(resolve => setTimeout(() => resolve(null), 15000))
-        ]);
-
-        if (!outcome) {
-            await page.screenshot({ path: 'tmp/reset-filters-failed.png', fullPage: true }).catch(() => {});
-            throw new Error('Reset filters did not trigger a reload or expected UI change within timeout; screenshot saved to tmp/reset-filters-failed.png');
-        }
-
-        // Verify we're back at homepage (or product list restored)
-        await expect(page).toHaveURL('/');
-        await page.locator('.card').first().waitFor({ state: 'visible', timeout: 10000 });
-    });
-    */
-
     test('should display product details', async ({ page }) => {
         await page.waitForSelector('.card', { timeout: 10000 });
 
@@ -268,7 +215,6 @@ test.describe('Homepage Tests', () => {
         };
     });
 
-    // /*
     test('should display product name correctly', async ({ page }) => {
         await page.waitForSelector('.card', { timeout: 10000 });
         const firstCard = page.locator('.card').first();
@@ -283,7 +229,6 @@ test.describe('Homepage Tests', () => {
         expect(nameText).toBeTruthy();
         expect(nameText.trim().length).toBeGreaterThan(0);
     });
-    // */
 
     test('should display product price correctly', async ({ page }) => {
         await page.waitForSelector('.card', { timeout: 10000 });
