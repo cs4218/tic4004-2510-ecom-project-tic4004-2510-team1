@@ -478,9 +478,9 @@ describe('Login Component', () => {
   
   // /*
   it.each([
-    { description: '1 character password', password: 'p' },
-    { description: '2 characters password', password: 'pw' },
+    { description: '7 characters password', password: 'Passwor' },
     { description: '8 characters password (nominal value - common requirement)', password: 'Password' },
+    { description: '9 character password', password: 'Password12' },
     { description: 'very long password', password: 'P@ss' + 'x'.repeat(996) },
     { description: 'extremely long password', password: 'P@ss' + 'y'.repeat(4996) }
   ])('$description', async ({ description, password }) => {
